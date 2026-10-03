@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+*.log
+frontend/e2e/screenshots
+PROJECT_EXPLANATION.md

@@ -1,0 +1,17 @@
+# Render Blueprint for the backend API (https://render.com/docs/blueprint-spec)
+# Note: on Render's free tier the disk is ephemeral, so the SQLite file resets on each deploy.
+# For persistent data, switch the Prisma provider to "postgresql" and use a Render Postgres URL.
+services:
+  - type: web
+    name: recall-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npx prisma db push && node prisma/seed.js
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        value: file:./prod.db
+      - key: CORS_ORIGIN
+        sync: false # set to your Vercel/Netlify URL, e.g. https://recall.vercel.app

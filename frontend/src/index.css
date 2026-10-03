@@ -1,0 +1,145 @@
+:root {
+  --color-bg: #eef0e8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f7f2;
+  --color-ink: #22303a;
+  --color-ink-soft: #5b6b66;
+  --color-border: #d8dcd0;
+  --color-on-ink: #ffffff; /* text on an ink-coloured button */
+  --color-on-accent: #ffffff; /* text on green/amber/rose buttons */
+
+  --color-green: #3f6b52;
+  --color-green-soft: #e3ebe4;
+  --color-amber: #b5561f;
+  --color-amber-soft: #f5e6da;
+  --color-blue: #3b5a7a;
+  --color-blue-soft: #e2e8ee;
+  --color-rose: #9c4a5c;
+  --color-rose-soft: #f0e1e4;
+
+  /* Ordered mastery scale: one hue, light → dark */
+  --mastery-new: #c7d9cb;
+  --mastery-learning: #7ea68a;
+  --mastery-mastered: #2f5a41;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius: 10px;
+  --shadow-card: 0 1px 2px rgba(34, 48, 58, 0.06), 0 8px 20px rgba(34, 48, 58, 0.08);
+  --shadow-lift: 0 4px 6px rgba(34, 48, 58, 0.06), 0 14px 28px rgba(34, 48, 58, 0.12);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #151a1d;
+  --color-surface: #1e252a;
+  --color-surface-2: #242c32;
+  --color-ink: #e5e9e3;
+  --color-ink-soft: #9aa9a3;
+  --color-border: #334048;
+  --color-on-ink: #151a1d;
+  --color-on-accent: #10161a;
+
+  --color-green: #86c19b;
+  --color-green-soft: #22352a;
+  --color-amber: #e59a6a;
+  --color-amber-soft: #3b2a1f;
+  --color-blue: #93b4d8;
+  --color-blue-soft: #1f2c3a;
+  --color-rose: #e094a6;
+  --color-rose-soft: #3a2429;
+
+  --mastery-new: #34473b;
+  --mastery-learning: #5f9471;
+  --mastery-mastered: #a6dab5;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.25);
+  --shadow-lift: 0 4px 6px rgba(0, 0, 0, 0.3), 0 14px 28px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75em;
+  padding: 1px 5px;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--color-surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

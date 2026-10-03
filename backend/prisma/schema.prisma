@@ -1,0 +1,72 @@
+// Recall — database schema
+// SQLite keeps setup to zero installs. To move to PostgreSQL, change `provider`
+// below and point DATABASE_URL at a Postgres connection string.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Deck {
+  id          String         @id @default(cuid())
+  title       String
+  subject     String         @default("General")
+  description String         @default("")
+  swatch      String         @default("green") // green | amber | blue | rose
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  cards       Card[]
+  sessions    StudySession[]
+}
+
+model Card {
+  id             String    @id @default(cuid())
+  front          String
+  back           String
+  deckId         String
+  deck           Deck      @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  // Spaced-repetition (SM-2) scheduling state
+  easeFactor     Float     @default(2.5)
+  interval       Int       @default(0) // days until the next review
+  repetitions    Int       @default(0) // consecutive successful reviews
+  lapses         Int       @default(0) // times the card was forgotten
+  reviewCount    Int       @default(0)
+  dueAt          DateTime  @default(now())
+  lastReviewedAt DateTime?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  reviews        Review[]
+
+  @@index([deckId])
+  @@index([dueAt])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  cardId     String
+  card       Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  grade      Int // 0 = again, 1 = hard, 2 = good, 3 = easy
+  reviewedAt DateTime @default(now())
+
+  @@index([reviewedAt])
+}
+
+model StudySession {
+  id          String   @id @default(cuid())
+  deckId      String
+  deck        Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  mode        String   @default("all") // all | due
+  total       Int
+  known       Int
+  review      Int
+  durationSec Int      @default(0)
+  completedAt DateTime @default(now())
+
+  @@index([completedAt])
+}
