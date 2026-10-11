@@ -6,3 +6,4 @@ dist
 *.log
 frontend/e2e/screenshots
 PROJECT_EXPLANATION.md
+.github
